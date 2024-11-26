@@ -1,29 +1,18 @@
 // DOM에 조대리 버튼 삽입
 const createChatButton = () => {
-//   const button = document.createElement("div");
-//   button.src = chrome.runtime.getURL("assets/logo.svg"); 
-//   button.id = "chat-button";
-//   button.style = `
-//       position: fixed;
-//       bottom: 20px;
-//       right: 20px;
-//       width: 60px;
-//       height: 60px;
-//       cursor: pointer;
-//       z-index: 10000;
-//     `;
-
-const button = document.createElement("div");
-button.id = "chat-button";
-button.style = `
+  const button = document.createElement("div");
+  button.id = "chat-button";
+  button.style = `
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 60px;
-  height: 60px;
+  width: 100px;
+  height: 10ㄴ0px;
   cursor: pointer;
   z-index: 10000;
-  background: url('${chrome.runtime.getURL("./assets/logo.svg")}') no-repeat center center;
+  background: url('${chrome.runtime.getURL(
+    "./assets/logo.svg"
+  )}') no-repeat center center;
   background-size: contain;
 `;
 
@@ -50,8 +39,7 @@ button.style = `
 
   // 버튼 클릭 이벤트 추가
   button.addEventListener("click", () => {
-    // chatBox.style.display = chatBox.style.display === "none" ? "block" : "none";
-    console.log('q눌렀쥬')
+    console.log("q눌렀쥬");
   });
 
   // DOM에 추가
