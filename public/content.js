@@ -156,14 +156,22 @@ const createChatBot = () => {
     display: flex;
     justify-content: flex-end;
     text-align: left;
+    margin: 10px 0;
     `;
+    
+    userContents.style = `
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    `;
+
 
     userMessageItem.style = `
     padding: 10px;
     margin: 10px 0;
     background: #CCCEDA;
     border-radius: 10px;
-    align-self: flex-end;
+    align-self: flex-start;
     font-size: 15px;
     white-space: pre-wrap;
     word-wrap: break-word;
@@ -172,6 +180,8 @@ const createChatBot = () => {
     userTimeStamp.style = `
     color:#888888;
     font-size: 15px;
+    text-align: right;
+    padding: 0 5px;
     `;
 
     messagesContainer.appendChild(userContentsBox);
