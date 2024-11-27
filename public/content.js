@@ -1,5 +1,3 @@
-alert("조대리 챗봇을 사용합니다.");
-
 const createChatButton = () => {
   const button = document.createElement("div");
   button.id = "chat-button";
@@ -12,7 +10,6 @@ const createChatButton = () => {
     cursor: pointer;
     z-index: 10000;
     margin: 10px 20px;
-    padding:10px;
   `;
   button.innerHTML = `
   <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -27,63 +24,101 @@ const createChatButton = () => {
   chatBox.style = `
     display: none;
     position: fixed;
-    bottom: 120px;
+    bottom: 130px;
     right: 20px;
-    width: 400px;
-    height: 558.14px;
+    width: 350px;
+    height: 500px;
     background: #F3F5F9;
     border-radius: 20px;
     z-index: 10001;
-    margin: 30px;
-    padding:10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   `;
 
+  // 헤더 생성
+  const header = document.createElement("div");
+  header.id = "chat-header";
+  header.style = `
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    `;
+  header.innerHTML = `
+    <svg width="126" height="59" viewBox="0 0 126 59" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M39.6507 11.1658L39.6888 19.1657L25.7289 19.2321C25.8687 20.5915 26.3676 21.7491 27.2254 22.705C28.1099 23.6342 29.2069 24.4156 30.5166 25.0494C31.8262 25.6565 33.2817 26.1029 34.883 26.3887C36.4844 26.6744 38.0985 26.8267 39.7253 26.8456L39.7652 35.2456C37.8718 35.2279 35.9642 35.0503 34.0426 34.7128C32.1477 34.3751 30.3587 33.9036 28.6758 33.2983C26.9929 32.6929 25.4695 31.9802 24.1056 31.16C22.7682 30.313 21.7104 29.3713 20.9321 28.335C20.1638 29.3787 19.1016 30.3304 17.7457 31.1902C16.4163 32.0232 14.9131 32.7504 13.236 33.3717C11.5589 33.993 9.76124 34.4815 7.84291 34.8373C5.95125 35.193 4.05882 35.3887 2.16564 35.4243L2.1257 27.0244C3.75222 26.99 5.36477 26.8224 6.96336 26.5214C8.56195 26.2205 10.0131 25.7602 11.3168 25.1407C12.6205 24.4945 13.6967 23.7027 14.5456 22.7653C15.421 21.8012 15.9222 20.6388 16.049 19.2781L2.08918 19.3445L2.05114 11.3446L39.6507 11.1658ZM16.3864 39.7568L16.3575 33.6768L25.5574 33.6331L25.5863 39.713L39.7861 39.6455L39.8242 47.6454L2.2246 47.8242L2.18656 39.8243L16.3864 39.7568ZM72.6254 47.4894L72.5519 32.0496L70.712 32.0584L70.7854 47.4982L53.0256 47.5826C51.6923 47.589 50.4779 47.3814 49.3826 46.96C48.3139 46.5384 47.3911 45.9427 46.6141 45.1731C45.8638 44.43 45.2728 43.5128 44.841 42.4215C44.4092 41.3569 44.1902 40.1579 44.1838 38.8246L44.0522 11.1449L59.972 11.0692L60.0082 18.6691L52.4883 18.7049L52.5761 37.1847C52.5779 37.558 52.6596 37.9176 52.8213 38.2635C52.9828 38.5827 53.1842 38.8751 53.4254 39.1406C53.6933 39.3794 53.9875 39.578 54.3083 39.7365C54.6557 39.8948 55.0161 39.9731 55.3894 39.9713L62.3493 39.9382L62.212 11.0585L70.6119 11.0186L70.6758 24.4585L72.5158 24.4497L72.4519 11.0099L80.8518 10.9699L81.0253 47.4495L72.6254 47.4894ZM95.1867 47.3822C93.72 47.3891 92.3854 47.1288 91.1829 46.6012C89.9805 46.1002 88.9504 45.3718 88.0925 44.4159C87.2346 43.4599 86.5625 42.3164 86.0762 40.9854C85.6164 39.6276 85.3825 38.122 85.3747 36.4687C85.3668 34.8154 85.5864 33.321 86.0334 31.9855C86.5069 30.6232 87.168 29.4601 88.0168 28.496C88.8655 27.532 89.8887 26.7938 91.0863 26.2814C92.2837 25.7424 93.6158 25.4694 95.0824 25.4624L96.5624 25.4554C97.6557 25.4502 98.521 25.1527 99.1582 24.563C99.822 23.9465 100.151 23.1316 100.147 22.1183C100.141 20.9983 99.8038 20.1199 99.1341 19.4831C98.4909 18.8195 97.6227 18.4903 96.5293 18.4955L86.0895 18.5451L86.0533 10.9452L100.693 10.8756C101.973 10.8695 103.148 11.1306 104.217 11.6588C105.286 12.1604 106.196 12.8894 106.947 13.8459C107.699 14.8023 108.277 15.9596 108.684 17.3176C109.117 18.6489 109.337 20.1412 109.345 21.7946C109.353 23.4479 109.147 24.9555 108.727 26.3175C108.333 27.6528 107.765 28.8021 107.023 29.7657C106.281 30.7292 105.378 31.4802 104.314 32.0186C103.249 32.5303 102.077 32.7892 100.797 32.7953L98.1574 32.8079C97.0641 32.8131 96.1856 33.1373 95.522 33.7804C94.885 34.4235 94.569 35.265 94.574 36.305C94.5789 37.3449 94.9029 38.1834 95.546 38.8204C96.2157 39.4572 97.0972 39.773 98.1905 39.7678L112.99 39.6974L112.853 10.8178L122.053 10.774L122.226 47.2536L95.1867 47.3822Z" fill="#1A245A"/>
+    </svg>
+    `;
+
+  // 헤더 클릭 시 특정 사이트로 이동
+  header.addEventListener("click", () => {
+    window.open("https://jodaeri.vercel.app/", "_blank"); // 새 탭으로 열기
+  });
   // 채팅 내용 표시 영역
   const messagesContainer = document.createElement("div");
   messagesContainer.id = "messages-container";
   messagesContainer.style = `
-     flex: 1;
-     overflow-y: auto;
-     margin-bottom: 10px;
-     padding: 10px;
-     border: 1px solid #ccc;
-     border-radius: 10px;
-     background: white;
-   `;
+    flex: 1; 
+    overflow-y: auto;
+    padding: 10px;
+   
+  `;
 
   // 사용자 입력창
   const inputContainer = document.createElement("div");
   inputContainer.style = `
     display: flex;
     align-items: center;
-  `;
-  const inputField = document.createElement("input");
-  inputField.type = "text";
-  inputField.placeholder = "메시지를 입력하세요...";
-  inputField.style = `
-    flex: 1;
+    justify-content: center;
+    margin: 10px auto;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
+    background: #FFFFFF;
+    width: 90%;
+    height: 50px;
+  
+  `;
+  const inputField = document.createElement("textarea");
+  inputField.type = "text";
+  inputField.placeholder = "메시지를 입력해 주세요.";
+  inputField.style = `
+    flex: 1;
+    border: none;
+    outline: none;
+    resize: none;
+    font-size: 15px;
+    padding: 10px;
+    width: 87%;
+    height: 45px;
   `;
 
-  const sendButton = document.createElement("button");
-  sendButton.textContent = "전송";
+  const sendButton = document.createElement("div");
   sendButton.style = `
     margin-left: 10px;
-    padding: 10px 20px;
-    background: #007BFF;
-    color: white;
+    padding: 10px;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `;
+
+  sendButton.innerHTML = `
+<svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.44283 12.1578L19.3031 1.30145M8.75153 12.646L11.2141 17.5712C11.8093 18.7614 12.1068 19.3566 12.4816 19.5161C12.807 19.6546 13.1788 19.6295 13.4827 19.4487C13.8327 19.2402 14.0477 18.6105 14.4777 17.3512L19.1306 3.72472C19.5054 2.62745 19.6926 2.07881 19.5644 1.71587C19.4528 1.40014 19.2045 1.15177 18.8888 1.04023C18.5258 0.911999 17.9772 1.09934 16.8799 1.47401L3.25343 6.12697C1.99411 6.55698 1.36445 6.77199 1.15601 7.12204C0.975121 7.42582 0.950056 7.79769 1.08854 8.12294C1.24813 8.4978 1.84324 8.79543 3.03346 9.39046L7.95868 11.8532C8.15484 11.9512 8.2529 12.0002 8.33778 12.0657C8.41324 12.1239 8.48083 12.1914 8.5389 12.2668C8.60449 12.3518 8.65347 12.4498 8.75153 12.646Z" stroke="#666D91" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
   `;
 
   // 입력창과 전송 버튼을 추가
   inputContainer.appendChild(inputField);
   inputContainer.appendChild(sendButton);
 
-  // chatBox에 컨테이너 추가
+  // chatBox에 요소 추가
+  chatBox.appendChild(header);
   chatBox.appendChild(messagesContainer);
   chatBox.appendChild(inputContainer);
 
@@ -94,23 +129,26 @@ const createChatButton = () => {
 
   // 버튼 클릭 이벤트
   button.addEventListener("click", () => {
-    chatBox.style.display = chatBox.style.display === "none" ? "block" : "none";
-    console.log(" 버튼 클릭");
+    chatBox.style.display = chatBox.style.display === "none" ? "flex" : "none"; // flex를 사용
+    messagesContainer.scrollTop = messagesContainer.scrollHeight; // 버튼 클릭 시 스크롤 최하단으로 이동
   });
+
   // 전송 버튼 클릭 이벤트
   sendButton.addEventListener("click", () => {
     const userMessage = inputField.value.trim();
     if (!userMessage) return;
 
-    const userMessageDiv = document.createElement("div");
-    userMessageDiv.textContent = `사용자: ${userMessage}`;
+    const userMessageDiv = document.createElement("button");
+    userMessageDiv.textContent = `${userMessage}`;
+    // 사용자 입력
     userMessageDiv.style = `
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 5px;
-    background: #e6f7ff;
-    align-self: flex-end;
-  `;
+  padding: 10px;
+  margin: 5px 0;
+  background: #E6F7FF;
+  border-radius: 5px;
+  align-self: flex-end;
+  max-width: 80%;
+`;
     messagesContainer.appendChild(userMessageDiv);
 
     inputField.value = "";
@@ -118,6 +156,7 @@ const createChatButton = () => {
     simulateApiResponse(userMessage);
   });
 
+  // API 응답 시뮬레이션
   const simulateApiResponse = (message) => {
     setTimeout(() => {
       const botResponseDiv = document.createElement("div");
