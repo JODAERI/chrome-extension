@@ -79,8 +79,8 @@ const createChatBot = () => {
     background: #FFFFFF;
     width: 90%;
     height: 50px;
-  
   `;
+
   const inputField = document.createElement("textarea");
   inputField.type = "text";
   inputField.placeholder = "메시지를 입력해 주세요.";
@@ -131,7 +131,7 @@ const createChatBot = () => {
 
   // 버튼 클릭 이벤트
   button.addEventListener("click", () => {
-    chatBox.style.display = chatBox.style.display === "none" ? "flex" : "none"; 
+    chatBox.style.display = chatBox.style.display === "none" ? "flex" : "none";
     messagesContainer.scrollTop = messagesContainer.scrollHeight; // 버튼 클릭 시 스크롤 최하단으로 이동
   });
 
@@ -139,46 +139,85 @@ const createChatBot = () => {
   sendButton.addEventListener("click", () => {
     const userMessage = inputField.value.trim();
     if (!userMessage) return;
-    const userMessageBox = document.createElement("div");
-    const userMessageItem = document.createElement("button");
-    userMessageItem.textContent = `${userMessage}`;
+    inputField.value = "";
+    showUserMessage(userMessage, "2.03 PM, 28 Sep");
+    showChatBotMessage(userMessage, "2.03 PM, 28 Sep");
+  });
 
-    userMessageBox.style=`
+  const showUserMessage = (userMessage, timeStamp) => {
+    const userContentsBox = document.createElement("div");
+    const userContents = document.createElement("div");
+    const userMessageItem = document.createElement("div");
+    const userTimeStamp = document.createElement("div");
+    userMessageItem.textContent = `${userMessage}`;
+    userTimeStamp.textContent = `${timeStamp}`;
+
+    userContentsBox.style = `
     display: flex;
     justify-content: flex-end;
     text-align: left;
-    `
+    `;
+
     userMessageItem.style = `
     padding: 10px;
     margin: 10px 0;
     background: #CCCEDA;
     border-radius: 10px;
     align-self: flex-end;
-    max-width: 80%;
     font-size: 15px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 `;
-    messagesContainer.appendChild(userMessageBox);
-    userMessageBox.appendChild(userMessageItem)
-    inputField.value = "";
-    simulateApiResponse(userMessage);
-  });
+
+    userTimeStamp.style = `
+    color:#888888;
+    font-size: 15px;
+    `;
+
+    messagesContainer.appendChild(userContentsBox);
+    userContentsBox.appendChild(userContents);
+    userContents.appendChild(userTimeStamp);
+    userContents.appendChild(userMessageItem);
+  };
 
   // API 응답 시뮬레이션
-  const simulateApiResponse = (message) => {
+  const showChatBotMessage = (message, timeStamp) => {
     setTimeout(() => {
-      const botResponseDiv = document.createElement("div");
-      botResponseDiv.textContent = `API 응답: ${message}에 대한 응답입니다.`;
-      botResponseDiv.style = `
+      const botResponseBox = document.createElement("div");
+      const botResponseContents = document.createElement("div");
+      const botResponseItem = document.createElement("div");
+      const botTimeStamp = document.createElement("div");
+      const botLogo = document.createElement("div");
+      botResponseItem.textContent = `API 응답: ${message}`;
+      botTimeStamp.textContent = `${timeStamp}`;
+
+      botResponseBox.style = `
+      display: flex;
+      justify-content: flex-start;
+      text-align: left;
+      `;
+
+      botResponseItem.style = `
       padding: 10px;
-      margin: 5px 0;
+      margin: 10px 0;
       border-radius: 10px;
       background: #FFFFFF;
       border: 1px solid #E7E7E7;
-      align-self: flex-start;
       font-size: 15px;
-      word-wrap: break-word
+      word-wrap: break-word;
+      white-space: pre-wrap;
     `;
-      messagesContainer.appendChild(botResponseDiv);
+
+      botTimeStamp.style = `
+      color:#888888;
+      font-size: 15px;
+    `;
+
+      messagesContainer.appendChild(botResponseBox);
+      botResponseBox.appendChild(botResponseContents);
+      botResponseContents.appendChild(botTimeStamp);
+      botResponseContents.appendChild(botResponseItem);
+
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }, 1000);
   };
