@@ -54,7 +54,7 @@ const createChatBot = () => {
 
   // 헤더 클릭 시 특정 사이트로 이동
   header.addEventListener("click", () => {
-    window.open("https://jodaeri.vercel.app/", "_blank"); // 새 탭으로 열기
+    window.open("https://jodaeri.vercel.app/", "_blank");
   });
 
   // 채팅 내용 표시 영역
@@ -131,33 +131,35 @@ const createChatBot = () => {
 
   // 버튼 클릭 이벤트
   button.addEventListener("click", () => {
-    chatBox.style.display = chatBox.style.display === "none" ? "flex" : "none"; // flex를 사용
+    chatBox.style.display = chatBox.style.display === "none" ? "flex" : "none"; 
     messagesContainer.scrollTop = messagesContainer.scrollHeight; // 버튼 클릭 시 스크롤 최하단으로 이동
   });
 
-  // 전송 버튼 클릭 이벤트 ->
+  // 전송 버튼 클릭 이벤트
   sendButton.addEventListener("click", () => {
     const userMessage = inputField.value.trim();
     if (!userMessage) return;
+    const userMessageBox = document.createElement("div");
+    const userMessageItem = document.createElement("button");
+    userMessageItem.textContent = `${userMessage}`;
 
-    const userMessageDiv = document.createElement("button");
-    userMessageDiv.textContent = `${userMessage}`;
-    // 사용자 입력
-    userMessageDiv.style = `
-  display: flex;
-  text-align: center;
-  justify-content: flex-end;
-  padding: 10px;
-  margin: 10px 0;
-  background: #CCCEDA;
-  border-radius: 10px;
-  align-self: flex-end;
-  font-size: 15px;
+    userMessageBox.style=`
+    display: flex;
+    justify-content: flex-end;
+    text-align: left;
+    `
+    userMessageItem.style = `
+    padding: 10px;
+    margin: 10px 0;
+    background: #CCCEDA;
+    border-radius: 10px;
+    align-self: flex-end;
+    max-width: 80%;
+    font-size: 15px;
 `;
-    messagesContainer.appendChild(userMessageDiv);
-
+    messagesContainer.appendChild(userMessageBox);
+    userMessageBox.appendChild(userMessageItem)
     inputField.value = "";
-
     simulateApiResponse(userMessage);
   });
 
@@ -174,6 +176,7 @@ const createChatBot = () => {
       border: 1px solid #E7E7E7;
       align-self: flex-start;
       font-size: 15px;
+      word-wrap: break-word
     `;
       messagesContainer.appendChild(botResponseDiv);
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
