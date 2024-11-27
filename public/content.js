@@ -1,4 +1,4 @@
-alert("Content script is running!");
+alert("조대리 챗봇을 사용합니다.");
 
 const createChatButton = () => {
   const button = document.createElement("div");
@@ -11,7 +11,7 @@ const createChatButton = () => {
     height: 100px;
     cursor: pointer;
     z-index: 10000;
-    margin: 20px;
+    margin: 10px 20px;
     padding:10px;
   `;
   button.innerHTML = `
@@ -27,16 +27,65 @@ const createChatButton = () => {
   chatBox.style = `
     display: none;
     position: fixed;
-    bottom: 150px;
+    bottom: 120px;
     right: 20px;
-    width: 430px;
-    height: 600px;
+    width: 400px;
+    height: 558.14px;
     background: #F3F5F9;
     border-radius: 20px;
     z-index: 10001;
-    margin: 20px;
+    margin: 30px;
     padding:10px;
   `;
+
+  // 채팅 내용 표시 영역
+  const messagesContainer = document.createElement("div");
+  messagesContainer.id = "messages-container";
+  messagesContainer.style = `
+     flex: 1;
+     overflow-y: auto;
+     margin-bottom: 10px;
+     padding: 10px;
+     border: 1px solid #ccc;
+     border-radius: 10px;
+     background: white;
+   `;
+
+  // 사용자 입력창
+  const inputContainer = document.createElement("div");
+  inputContainer.style = `
+    display: flex;
+    align-items: center;
+  `;
+  const inputField = document.createElement("input");
+  inputField.type = "text";
+  inputField.placeholder = "메시지를 입력하세요...";
+  inputField.style = `
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  `;
+
+  const sendButton = document.createElement("button");
+  sendButton.textContent = "전송";
+  sendButton.style = `
+    margin-left: 10px;
+    padding: 10px 20px;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  `;
+
+  // 입력창과 전송 버튼을 추가
+  inputContainer.appendChild(inputField);
+  inputContainer.appendChild(sendButton);
+
+  // chatBox에 컨테이너 추가
+  chatBox.appendChild(messagesContainer);
+  chatBox.appendChild(inputContainer);
 
   // React 렌더링 div 추가
   const reactRoot = document.createElement("div");
@@ -48,6 +97,42 @@ const createChatButton = () => {
     chatBox.style.display = chatBox.style.display === "none" ? "block" : "none";
     console.log(" 버튼 클릭");
   });
+  // 전송 버튼 클릭 이벤트
+  sendButton.addEventListener("click", () => {
+    const userMessage = inputField.value.trim();
+    if (!userMessage) return;
+
+    const userMessageDiv = document.createElement("div");
+    userMessageDiv.textContent = `사용자: ${userMessage}`;
+    userMessageDiv.style = `
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    background: #e6f7ff;
+    align-self: flex-end;
+  `;
+    messagesContainer.appendChild(userMessageDiv);
+
+    inputField.value = "";
+
+    simulateApiResponse(userMessage);
+  });
+
+  const simulateApiResponse = (message) => {
+    setTimeout(() => {
+      const botResponseDiv = document.createElement("div");
+      botResponseDiv.textContent = `API 응답: ${message}에 대한 응답입니다.`;
+      botResponseDiv.style = `
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+      background: #f0f0f0;
+      align-self: flex-start;
+    `;
+      messagesContainer.appendChild(botResponseDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }, 1000);
+  };
 
   // DOM에 추가
   document.body.appendChild(button);
