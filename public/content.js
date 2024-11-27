@@ -24,10 +24,10 @@ const createChatButton = () => {
   chatBox.style = `
     display: none;
     position: fixed;
-    bottom: 130px;
+    bottom: 150px;
     right: 20px;
-    width: 350px;
-    height: 500px;
+    width: 400px;
+    height: 558px;
     background: #F3F5F9;
     border-radius: 20px;
     z-index: 10001;
@@ -44,7 +44,7 @@ const createChatButton = () => {
     padding: 10px;
     display: flex;
     justify-content: center;
-    text-align: center;
+    margin: auto;
     `;
   header.innerHTML = `
     <svg width="126" height="59" viewBox="0 0 126 59" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -56,6 +56,7 @@ const createChatButton = () => {
   header.addEventListener("click", () => {
     window.open("https://jodaeri.vercel.app/", "_blank"); // 새 탭으로 열기
   });
+
   // 채팅 내용 표시 영역
   const messagesContainer = document.createElement("div");
   messagesContainer.id = "messages-container";
@@ -63,7 +64,6 @@ const createChatButton = () => {
     flex: 1; 
     overflow-y: auto;
     padding: 10px;
-   
   `;
 
   // 사용자 입력창
@@ -72,9 +72,9 @@ const createChatButton = () => {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 10px auto;
+    margin: 20px auto;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #B2B6C8;
     border-radius: 10px;
     background: #FFFFFF;
     width: 90%;
@@ -85,6 +85,7 @@ const createChatButton = () => {
   inputField.type = "text";
   inputField.placeholder = "메시지를 입력해 주세요.";
   inputField.style = `
+    align-items: center;
     flex: 1;
     border: none;
     outline: none;
@@ -92,7 +93,7 @@ const createChatButton = () => {
     font-size: 15px;
     padding: 10px;
     width: 87%;
-    height: 45px;
+    height: 40px;
   `;
 
   const sendButton = document.createElement("div");
@@ -104,6 +105,7 @@ const createChatButton = () => {
     display: flex;
     align-items: center;
     justify-content: center;
+
   `;
 
   sendButton.innerHTML = `
@@ -133,7 +135,7 @@ const createChatButton = () => {
     messagesContainer.scrollTop = messagesContainer.scrollHeight; // 버튼 클릭 시 스크롤 최하단으로 이동
   });
 
-  // 전송 버튼 클릭 이벤트
+  // 전송 버튼 클릭 이벤트 -> 
   sendButton.addEventListener("click", () => {
     const userMessage = inputField.value.trim();
     if (!userMessage) return;
@@ -142,6 +144,9 @@ const createChatButton = () => {
     userMessageDiv.textContent = `${userMessage}`;
     // 사용자 입력
     userMessageDiv.style = `
+  display: flex;
+  text-align: center;
+  justify-content: flex-end;
   padding: 10px;
   margin: 5px 0;
   background: #E6F7FF;
