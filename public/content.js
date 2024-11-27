@@ -1,4 +1,4 @@
-const createChatButton = () => {
+const createChatBot = () => {
   const button = document.createElement("div");
   button.id = "chat-button";
   button.style = `
@@ -135,7 +135,7 @@ const createChatButton = () => {
     messagesContainer.scrollTop = messagesContainer.scrollHeight; // 버튼 클릭 시 스크롤 최하단으로 이동
   });
 
-  // 전송 버튼 클릭 이벤트 -> 
+  // 전송 버튼 클릭 이벤트 ->
   sendButton.addEventListener("click", () => {
     const userMessage = inputField.value.trim();
     if (!userMessage) return;
@@ -148,11 +148,11 @@ const createChatButton = () => {
   text-align: center;
   justify-content: flex-end;
   padding: 10px;
-  margin: 5px 0;
-  background: #E6F7FF;
-  border-radius: 5px;
+  margin: 10px 0;
+  background: #CCCEDA;
+  border-radius: 10px;
   align-self: flex-end;
-  max-width: 80%;
+  font-size: 15px;
 `;
     messagesContainer.appendChild(userMessageDiv);
 
@@ -169,9 +169,11 @@ const createChatButton = () => {
       botResponseDiv.style = `
       padding: 10px;
       margin: 5px 0;
-      border-radius: 5px;
-      background: #f0f0f0;
+      border-radius: 10px;
+      background: #FFFFFF;
+      border: 1px solid #E7E7E7;
       align-self: flex-start;
+      font-size: 15px;
     `;
       messagesContainer.appendChild(botResponseDiv);
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -185,7 +187,7 @@ const createChatButton = () => {
 
 // DOMContentLoaded 이벤트를 사용
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", createChatButton);
+  document.addEventListener("DOMContentLoaded", createChatBot);
 } else {
-  createChatButton();
+  createChatBot();
 }
