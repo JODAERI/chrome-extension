@@ -158,13 +158,12 @@ const createChatBot = () => {
     text-align: left;
     margin: 10px 0;
     `;
-    
+
     userContents.style = `
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     `;
-
 
     userMessageItem.style = `
     padding: 10px;
@@ -196,8 +195,10 @@ const createChatBot = () => {
       const botResponseBox = document.createElement("div");
       const botResponseContents = document.createElement("div");
       const botResponseItem = document.createElement("div");
+      const botLogoTimeBox = document.createElement("div");
       const botTimeStamp = document.createElement("div");
       const botLogo = document.createElement("div");
+      
       botResponseItem.textContent = `API 응답: ${message}`;
       botTimeStamp.textContent = `${timeStamp}`;
 
@@ -218,14 +219,31 @@ const createChatBot = () => {
       white-space: pre-wrap;
     `;
 
+      botLogo.style = `
+      width: 40px;
+      height: 40px;
+      background: url('${chrome.runtime.getURL(
+        "assets/answerLogo.svg"
+      )}') no-repeat center center;
+      background-size: contain;
+      margin-right: 10px; 
+    `;
+
       botTimeStamp.style = `
       color:#888888;
       font-size: 15px;
+      padding-top: 20px
     `;
 
+      botLogoTimeBox.style = `
+      display: flex
+
+    `;
       messagesContainer.appendChild(botResponseBox);
       botResponseBox.appendChild(botResponseContents);
-      botResponseContents.appendChild(botTimeStamp);
+      botResponseContents.appendChild(botLogoTimeBox);
+      botLogoTimeBox.appendChild(botLogo);
+      botLogoTimeBox.appendChild(botTimeStamp);
       botResponseContents.appendChild(botResponseItem);
 
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
