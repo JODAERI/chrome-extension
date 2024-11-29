@@ -1,12 +1,13 @@
 {
   "manifest_version": 3,
-  "name": "조대리 확장 프로그램",
+  "name": "조대리",
+  "description": "조달 챗봇 서비스",
   "version": "1.0",
-  "description": "조달 관련 챗봇 서비스",
   "permissions": ["activeTab", "storage"],
   "host_permissions": ["<all_urls>"],
-  "background": {
-    "service_worker": "background.js"
+  "action": {
+    "default_icon": "assets/logo.svg",
+    "default_popup": "popup/index.html"
   },
   "content_scripts": [
     {
@@ -14,7 +15,14 @@
       "js": ["content.js"]
     }
   ],
-  "action": {
-    "default_icon": "assets/icon.png"
-  }
+  "background": {
+    "service_worker": "background.js"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/answerLogo.svg"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }
+
