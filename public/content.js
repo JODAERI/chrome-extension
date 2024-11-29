@@ -252,7 +252,7 @@ const createChatBot = () => {
       const botTimeStamp = document.createElement("div");
       const botLogo = document.createElement("div");
 
-      botResponseItem.textContent = `API 응답: ${message}`;
+      botResponseItem.textContent = `${message}`;
       botTimeStamp.textContent = `${timeStamp}`;
 
       botResponseBox.style = `
