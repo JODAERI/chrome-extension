@@ -136,12 +136,65 @@ const createChatBot = () => {
   });
 
   // 전송 버튼 클릭 이벤트
-  sendButton.addEventListener("click", () => {
+  sendButton.addEventListener("click", async () => {
     const userMessage = inputField.value.trim();
     if (!userMessage) return;
     inputField.value = "";
-    showUserMessage(userMessage, "2.03 PM, 28 Sep");
-    showChatBotMessage(userMessage, "2.03 PM, 28 Sep");
+    const API_BASE_URL = "https://www.proclockout.com";
+    const postResponse = await fetch(`${API_BASE_URL}/api/question`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id: null,
+        question: userMessage,
+        is_first: true,
+        is_short: true,
+      }),
+    });
+    if (!postResponse.ok) {
+      throw new Error(`HTTP error! status: ${postResponse.status}`);
+    }
+    const jsonPostResponse = await postResponse.json(); // JSON 변환 시도
+    const userId = jsonPostResponse.userId;
+
+    const getResponse = await fetch(`${API_BASE_URL}/api/qna/${userId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!getResponse.ok) {
+      throw new Error(`HTTP error! status: ${getResponse.status}`);
+    }
+
+    const jsonGetResponse = await getResponse.json();
+    const qnaData = jsonGetResponse.qnas;
+    console.log(jsonGetResponse);
+
+    // qnaData 배열 순회
+    qnaData.forEach((qna) => {
+      const { question, question_created_at, answer, answer_created_at } = qna;
+
+      // 사용자 메시지 표시
+      showUserMessage(question, formatTimeStamp(question_created_at));
+
+      // 봇 메시지 표시
+      showChatBotMessage(answer, formatTimeStamp(answer_created_at));
+    });
+
+    // 타임스탬프 형식을 변환하는 함수
+    function formatTimeStamp(timestamp) {
+      const date = new Date(timestamp);
+      const hours = date.getHours() % 12 || 12; // 12시간 형식
+      const minutes = date.getMinutes().toString().padStart(2, "0");
+      const ampm = date.getHours() >= 12 ? "PM" : "AM";
+      const day = date.getDate();
+      const month = date.toLocaleString("en-US", { month: "short" }); // ex: "Nov"
+
+      return `${hours}:${minutes} ${ampm}, ${day} ${month}`;
+    }
   });
 
   const showUserMessage = (userMessage, timeStamp) => {
@@ -198,7 +251,7 @@ const createChatBot = () => {
       const botLogoTimeBox = document.createElement("div");
       const botTimeStamp = document.createElement("div");
       const botLogo = document.createElement("div");
-      
+
       botResponseItem.textContent = `API 응답: ${message}`;
       botTimeStamp.textContent = `${timeStamp}`;
 
